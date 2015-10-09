@@ -1,6 +1,6 @@
 # API WAPCLICK.ONLINE
 
-**версия 1.06**
+**версия 1.07**
 
 ## 1. Описание
 
@@ -71,7 +71,7 @@ https://wapclick.mobi/init/[идентификатор подписки].html
 Партнёр делает GET запрос на адрес
 
 ```
-https://wapclick.mobi/init/async/[идентификатор подписки].json
+https://wapclick.mobi/init/sync/[идентификатор подписки].json
 ```
 
 Обязательные параметры запроса
@@ -87,28 +87,10 @@ https://wapclick.mobi/init/async/[идентификатор подписки].j
 Пример запроса
 
 ```
-https://wapclick.mobi/init/async/12187.json?ip=213.87.249.227&p_data=1&back_url=https%3A%2F%2Fsite.com%2Fcontent&uri_success=https%3A%2F%2Fsite.com%2Fsuccess%2F&uri_fail=https%3A%2F%2Fsite.com%2Ffail%2F
+https://wapclick.mobi/init/sync/12187.json?ip=213.87.249.227&p_data=1&back_url=https%3A%2F%2Fsite.com%2Fcontent&uri_success=https%3A%2F%2Fsite.com%2Fsuccess%2F&uri_fail=https%3A%2F%2Fsite.com%2Ffail%2F
 ```
 
-В ответ сервис возвращает статус обработки запроса в JSON формате. Поля ответа идентичны параметрам при возврате абонента на сайт партнёра (п. 4).
-
-Пример
-
-```json
-{"error":"ok","code":0}
-```
-
-#### 2.3.2 Уведомление об инициации подписки
-
-После выполнения запроса из п. 2.3.1 партнёр ожидает уведомления. Уведомление - POST запрос.
-
-Параметры уведомления
-
-| Параметр | Тип | Описание | Пример
-| --- | --- | --- | ---
-| action | varchar(30) | Тип уведомления - статус инициации | init_report
-
-В теле POST запроса передаётся JSON
+В ответ сервис возвращает статус обработки запроса в JSON формате
 
 | Параметр | Тип | Описание | Пример
 | --- | --- | --- | ---
@@ -116,42 +98,26 @@ https://wapclick.mobi/init/async/12187.json?ip=213.87.249.227&p_data=1&back_url=
 | redirect | varchar(1000) | Адрес для редиректа абонента | http://moipodpiski.ssl.mts.ru/lp/?SID=09565fc2-6dcf-11e5-9242-f933a6d11a80&IsMobile=Y
 | uri_success | varchar(1000) | Адрес для нотификации wapclick.online в случае возврата абонента на успешный адрес сайта партнёра из п. 2.3.1 | https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html
 | uri_fail | varchar(1000) | Адрес для нотификации wapclick.online в случае возврата абонента на неуспешный адрес сайта партнёра из п. 2.3.1 | https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html
+| code | int | Статус подписки (п. 4) | 0
+| error | varchar(30) | Расшифровка статуса подписки (п. 4) | ok
 
 Пример
 
 ```json
-{"p_data":"077dd9d0-690d-11e5-b533-0d1018f8ac82","redirect":"http://moipodpiski.ssl.mts.ru/lp/?SID=09565fc2-6dcf-11e5-9242-f933a6d11a80&IsMobile=Y","uri_success":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html","uri_fail":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html"}
+{"code":0,"error":"ok","p_data":"077dd9d0-690d-11e5-b533-0d1018f8ac82","redirect":"http://moipodpiski.ssl.mts.ru/lp/?SID=09565fc2-6dcf-11e5-9242-f933a6d11a80&IsMobile=Y","uri_success":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html","uri_fail":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html"}
 ```
 
-#### 2.3.3 Перенаправление абонента
+#### 2.3.2 Перенаправление абонента
 
-Партнёр осуществляет перенаправление абонента на адрес redirect, полученный в п. 2.3.2.
+Партнёр осуществляет перенаправление абонента на адрес redirect, полученный в п. 2.3.1.
 
-#### 2.3.4 Передача статуса подписки абонента
+#### 2.3.3 Передача статуса подписки абонента
 
 После того, как абонент перешёл по адресу поля redirect, он возвращается от оператора на один из двух адресов (uri_success, uri_fail).
 
-Партнёр получает все заголовки HTTP запроса, все GET параметры и делает GET запрос по одному из двух адресов, полученных в п. 2.3.2. В случае успеха делается вызов на uri_success. В случае неуспеха - на uri_fail.
+Партнёр получает все заголовки HTTP запроса, все GET параметры и делает GET запрос по одному из двух адресов, полученных в п. 2.3.1. В случае успеха делается вызов на uri_success. В случае неуспеха - на uri_fail.
 
-В ответ сервис возвращает статус обработки запроса в JSON формате. Поля ответа идентичны параметрам при возврате абонента на сайт партнёра (п. 4).
-
-Пример
-
-```json
-{"error":"ok","code":0}
-```
-
-#### 2.3.5 Уведомление об успешной обработке подписки
-
-После выполнения запроса из п. 2.3.4 партнёр ожидает уведомления. Уведомление - POST запрос.
-
-Параметры уведомления
-
-| Параметр | Тип | Описание | Пример
-| --- | --- | --- | ---
-| action | varchar(30) | Тип уведомления - статус инициации | init_report
-
-В теле POST запроса передаётся JSON
+В ответ сервис возвращает статус обработки запроса в JSON формате
 
 | Параметр | Тип | Описание | Пример
 | --- | --- | --- | ---
@@ -159,16 +125,18 @@ https://wapclick.mobi/init/async/12187.json?ip=213.87.249.227&p_data=1&back_url=
 | redirect | varchar(1000) | Адрес для редиректа абонента | https://site.com/content?code=0&error=ok
 | uri_success | varchar(1000) | Адрес для нотификации wapclick.online в случае возврата абонента на успешный адрес сайта партнёра из п. 2.3.1 | https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html
 | uri_fail | varchar(1000) | Адрес для нотификации wapclick.online в случае возврата абонента на неуспешный адрес сайта партнёра из п. 2.3.1 | https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html
+| code | int | Статус подписки (п. 4) | 0
+| error | varchar(30) | Расшифровка статуса подписки (п. 4) | ok
 
 Пример
 
 ```json
-{"p_data":"077dd9d0-690d-11e5-b533-0d1018f8ac82","redirect":"https://site.com/content?code=0&error=ok","uri_success":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html","uri_fail":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html"}
+{"code":0,"error":"ok","p_data":"077dd9d0-690d-11e5-b533-0d1018f8ac82","redirect":"https://site.com/content?code=0&error=ok","uri_success":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html","uri_fail":"https://wapclick.mobi/session/0955e13c-6dcf-11e5-9242-f933a6d11a80.html"}
 ```
 
-#### 2.3.6 Перенаправление абонента
+#### 2.3.4 Перенаправление абонента
 
-Партнёр осуществляет перенаправление абонента на адрес redirect, полученный в п. 2.3.5 и ожидает уведомления о тарификации обычным способом (п. 5).
+Партнёр осуществляет перенаправление абонента на адрес redirect, полученный в п. 2.3.3 и ожидает уведомления о тарификации обычным способом (п. 5).
 
 ## 3. Дополнительные параметры подключения
 
