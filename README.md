@@ -1,6 +1,6 @@
 # API WAPCLICK.ONLINE
 
-**версия 1.5**
+**версия 1.08**
 
 ## 1. Описание
 
@@ -23,13 +23,13 @@ Wapclick – предоставление абоненту платного до
 Партнёр размещает на страницах сайта код загрузки скрипта
 
 ```html
-<script type="text/javascript" src="https://wapclick.mobi/script/[идентификатор подписки].js" async></script>
+<script type="text/javascript" src="//wapclick.mobi/script/[идентификатор подписки].js" async></script>
 ```
 
  Пример
 
 ```html
-<script type="text/javascript" src="https://wapclick.mobi/script/13511.js" async></script>
+<script type="text/javascript" src="//wapclick.mobi/script/13511.js" async></script>
 ```
 
 Партнёр размещает на страницах сайта элемент для перехода к активации подписки. Это может быть кнопка или любой другой элемент
