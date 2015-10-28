@@ -42,9 +42,6 @@ https://wapclick.mobi/init/sync/[идентификатор подписки].js
 | back_url | varchar(1000) | Адрес возврата абонента | https://site.com/content
 | ip | varchar(15) | IP абонента | 213.87.249.227
 
-| uri_success | varchar(1000) | Адрес возврата абонента со стороны оператора при успехе | https://site.com/success/
-| uri_fail | varchar(1000) | Адрес возврата абонента со стороны оператора при неуспехе | https://site.com/fail/
-
 Пример запроса
 
 ```
@@ -192,7 +189,7 @@ https://site.com/subscriptions?action=unsubscribe_report&service_id=1234&p_data=
 Пример запроса
 
 ```
-https://wapclick.mobi/init/sync/12187.json?ip=213.87.249.227&p_data=1&back_url=https%3A%2F%2Fsite.com%2Fcontent&uri_success=https%3A%2F%2Fsite.com%2Fsuccess%2F&uri_fail=https%3A%2F%2Fsite.com%2Ffail%2F&utm_source=1&utm_medium=2&utm_campaign=3&utm_term=4&utm_content=5
+https://wapclick.mobi/init/sync/12187.json?ip=213.87.249.227&p_data=1&back_url=https%3A%2F%2Fsite.com%2Fcontent&utm_source=1&utm_medium=2&utm_campaign=3&utm_term=4&utm_content=5
 ```
 
 ## 8. Контакты
