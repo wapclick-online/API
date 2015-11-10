@@ -1,6 +1,6 @@
 # API WAPCLICK.ONLINE
 
-**версия 1.08**
+**версия 1.0**
 
 ## 1. Описание
 
@@ -168,13 +168,14 @@ wapclick.online уведомляет партнера об отписке або
 | --- | --- | --- | ---
 | action | varchar(30) | Тип уведомления - отписка | unsubscribe_report
 | service_id | integer | Идентификатор подписки | 1234
+| phone | bigint | Номер телефона абонента | 077dd9d0-690d-11e5-b533-0d1018f8ac82
 | p_data | varchar(100) | Идентификатор подписки в системе партнёра | 077dd9d0-690d-11e5-b533-0d1018f8ac82
-| sign | char(64) | Подпись запроса sha256(action+service_id+p_data+secret_key) | 68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
+| sign | char(64) | Подпись запроса sha256(action+service_id+phone+p_data+secret_key). Если p_data не использовался, то он не участвует в формировании подписи | 68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
 
 Пример уведомления
 
 ```
-https://site.com/subscriptions?action=unsubscribe_report&service_id=1234&p_data=077dd9d0-690d-11e5-b533-0d1018f8ac82&sign=68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
+https://site.com/subscriptions?action=unsubscribe_report&service_id=1234&phone=79031234567&p_data=077dd9d0-690d-11e5-b533-0d1018f8ac82&sign=68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
 ````
 
 ## 7. Оценка конверсии
