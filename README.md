@@ -201,7 +201,7 @@ https://site.com/subscriptions?action=unsubscribe_report&service_id=1234&phone=7
 Обращение к методам API происходит по адресу:
 
 ````
-https://wapclick.mobi/api/{version}/{method}?params
+https://api.wapclick.mobi/{version}/{method}?params
 ````
 Актуальная версия API – v1.
 
