@@ -161,7 +161,6 @@ wapclick.online уведомляет партнера об успешных сп
 https://site.com/subscriptions?action=charge_report&status=0&phone=79031234567&op=beeline&c_amount=100.01&amount=100.01&c_pay=50.01&pay=50.01&c_curr=RUB&curr=RUB&tid=08057700-690d-11e5-b610-321018f8ac82&p_data=077dd9d0-690d-11e5-b533-0d1018f8ac82
 ```
 
-
 ## 6. Уведомления об отписках
 
 wapclick.online уведомляет партнера об отписке абонента.
@@ -172,16 +171,16 @@ wapclick.online уведомляет партнера об отписке або
 | --- | --- | --- | ---
 | action | varchar(30) | Тип уведомления - отписка | unsubscribe_report
 | service_id | integer | Идентификатор подписки | 1234
-| phone | bigint | Номер телефона абонента | 077dd9d0-690d-11e5-b533-0d1018f8ac82
+| phone | bigint | Номер телефона абонента | 79031234567
+| tid | varchar(100) | Идентификатор транзакции | 077dd9d0-690d-11e5-b533-0d1018f8ac82
 | p_data | varchar(100) | Идентификатор подписки в системе партнёра | 077dd9d0-690d-11e5-b533-0d1018f8ac82
-| sign | char(64) | Подпись запроса sha256(action+service_id+phone+p_data+secret_key). Если p_data не использовался, то он не участвует в формировании подписи | 68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
+| sign | char(64) | Подпись запроса sha256(action+service_id+phone+tid+p_data+secret_key). Если p_data не использовался, то он не участвует в формировании подписи | 68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
 
 Пример уведомления
 
 ```
-https://site.com/subscriptions?action=unsubscribe_report&service_id=1234&phone=79031234567&p_data=077dd9d0-690d-11e5-b533-0d1018f8ac82&sign=68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
+https://site.com/subscriptions?action=unsubscribe_report&service_id=1234&phone=79031234567&tid=077dd9d0-690d-11e5-b533-0d1018f8ac82&p_data=077dd9d0-690d-11e5-b533-0d1018f8ac82&sign=68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728
 ```
-
 
 ## 7. Оценка конверсии
 
